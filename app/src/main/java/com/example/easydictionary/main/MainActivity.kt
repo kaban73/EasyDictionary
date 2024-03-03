@@ -1,7 +1,8 @@
-package com.example.easydictionary
+package com.example.easydictionary.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.easydictionary.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

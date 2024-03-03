@@ -1,5 +1,6 @@
 package com.example.easydictionary.main
 
+import com.example.easydictionary.list.ListScreen
 import org.junit.Before
 import org.junit.Test
 class MainViewModelTest {

@@ -11,8 +11,8 @@ interface FakeClearViewModel : ClearViewModel {
         override fun checkClearCalled(expected: Class<out ViewModel>) {
             Assert.assertEquals(expected, actual)
         }
-        override fun clearViewModel(clasz : Class<out ViewModel>) {
-            actual = clasz
+        override fun <T : ViewModel> clear(viewModelClass: Class<T>) {
+            actual = viewModelClass
         }
     }
 }

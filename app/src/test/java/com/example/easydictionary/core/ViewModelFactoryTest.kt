@@ -28,7 +28,7 @@ class ViewModelFactoryTest {
         factory.viewModel(viewModelClass = FakeViewModelOne::class.java)
         provideViewModel.checkCalled(listOf(FakeViewModelOne::class.java))
 
-        factory.viewModek(viewModelClass = FakeViewModelTwo::class.java)
+        factory.viewModel(viewModelClass = FakeViewModelTwo::class.java)
         provideViewModel.checkCalled(
             listOf(
             FakeViewModelOne::class.java,
@@ -42,7 +42,7 @@ class ViewModelFactoryTest {
         factory.viewModel(viewModelClass = FakeViewModelOne::class.java)
         provideViewModel.checkCalled(listOf(FakeViewModelOne::class.java))
 
-        factory.viewModek(viewModelClass = FakeViewModelTwo::class.java)
+        factory.viewModel(viewModelClass = FakeViewModelTwo::class.java)
         provideViewModel.checkCalled(
             listOf(
                 FakeViewModelOne::class.java,
@@ -51,6 +51,7 @@ class ViewModelFactoryTest {
         )
 
         factory.clear(viewModelClass = FakeViewModelOne::class.java)
+        provideViewModel.clear(viewModelClass = FakeViewModelOne::class.java)
         provideViewModel.checkCalled(
             listOf(
                 FakeViewModelTwo::class.java
@@ -71,7 +72,7 @@ class ViewModelFactoryTest {
         factory.viewModel(viewModelClass = FakeViewModelOne::class.java)
         provideViewModel.checkCalled(listOf(FakeViewModelOne::class.java))
 
-        factory.viewModek(viewModelClass = FakeViewModelTwo::class.java)
+        factory.viewModel(viewModelClass = FakeViewModelTwo::class.java)
         provideViewModel.checkCalled(
             listOf(
                 FakeViewModelOne::class.java,
@@ -80,6 +81,7 @@ class ViewModelFactoryTest {
         )
 
         factory.clear(viewModelClass = FakeViewModelTwo::class.java)
+        provideViewModel.clear(viewModelClass = FakeViewModelTwo::class.java)
         provideViewModel.checkCalled(
             listOf(
                 FakeViewModelOne::class.java

@@ -1,5 +1,10 @@
 package com.example.easydictionary.core
 
+import com.example.easydictionary.data.roomRepository.TranslateCache
+import com.example.easydictionary.data.roomRepository.RoomRepository
+import com.example.easydictionary.data.roomRepository.TranslatesDao
+import com.example.easydictionary.data.roomRepository.Now
+import com.example.easydictionary.list.Translate
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -7,13 +12,13 @@ import org.junit.Test
 class RoomRepositoryTest {
     private lateinit var now : FakeNow
     private lateinit var translatesDao : FakeTranslatesDao
-    private lateinit var repository : Repository.All
+    private lateinit var repository : RoomRepository.All
 
     @Before
     fun setup() {
         now = FakeNow.Base(666L)
         translatesDao = FakeTranslatesDao.Base()
-        repository = Repository.Base(
+        repository = RoomRepository.Base(
             translatesDao = translatesDao,
             now = now
         )
@@ -40,46 +45,46 @@ class RoomRepositoryTest {
             listOf(
                 TranslateCache(id = 0L, sourceText = "привет", translatedText = "hello"),
                 TranslateCache(id = 1L, sourceText = "пока", translatedText = "goodbye"),
-                TranslateCache(id = 668L, sourceText = "cool", translatedText = "крутой"),
+                TranslateCache(id = 667L, sourceText = "cool", translatedText = "крутой"),
             )
         )
     }
 
     @Test
     fun test_item() {
-        repository.add(valut = "first")
+        repository.add(value = "first")
         translatesDao.checkList(
             listOf(
-                TranslateCache(id = 668L, sourceText = "first", translatedText = "первый")
+                TranslateCache(id = 667L, sourceText = "first", translatedText = "первый")
             )
         )
 
-        val actual : Translate = repository.item(id = 668L)
-        val expected = Translate(id = 668L, sourceText = "first", translatedText = "первый")
+        val actual : Translate = repository.item(id = 667L)
+        val expected = Translate(id = 667L, sourceText = "first", translatedText = "первый")
         assertEquals(expected, actual)
     }
 
     @Test
     fun test_delete() {
-        repository.add(valut = "first")
+        repository.add(value = "first")
         translatesDao.checkList(
             listOf(
-                TranslateCache(id = 668L, sourceText = "first", translatedText = "первый")
+                TranslateCache(id = 667L, sourceText = "first", translatedText = "первый")
             )
         )
 
-        repository.add(valut = "second")
+        repository.add(value = "second")
         translatesDao.checkList(
             listOf(
-                TranslateCache(id = 668L, sourceText = "first", translatedText = "первый"),
-                TranslateCache(id = 669L, sourceText = "second", translatedText = "второй")
+                TranslateCache(id = 667L, sourceText = "first", translatedText = "первый"),
+                TranslateCache(id = 668L, sourceText = "second", translatedText = "второй")
             )
         )
 
-        repository.delete(id = 668L)
+        repository.delete(id = 667L)
         translatesDao.checkList(
             listOf(
-                TranslateCache(id = 669L, sourceText = "second", translatedText = "второй")
+                TranslateCache(id = 668L, sourceText = "second", translatedText = "второй")
             )
         )
     }

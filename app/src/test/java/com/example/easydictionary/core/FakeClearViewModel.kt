@@ -1,4 +1,18 @@
 package com.example.easydictionary.core
 
-class FakeClearViewModel {
+import androidx.lifecycle.ViewModel
+import org.junit.Assert
+
+interface FakeClearViewModel : ClearViewModel {
+    fun checkClearCalled(expected : Class<out ViewModel>)
+
+    class Base() : FakeClearViewModel {
+        private lateinit var actual : Class<out ViewModel>
+        override fun checkClearCalled(expected: Class<out ViewModel>) {
+            Assert.assertEquals(expected, actual)
+        }
+        override fun clearViewModel(clasz : Class<out ViewModel>) {
+            actual = clasz
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.easydictionary.repository
 
+import com.example.easydictionary.data.translateRepository.TranslateResponse
+import com.example.easydictionary.data.translateRepository.TranslateService
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -17,7 +19,7 @@ class ServiceTest {
         val actual =
             service.fetch(
                 sourceLang = "ru",
-                destinationLang = "en",
+                targetLang = "en",
                 text = "привет"
             )
         val expected = TranslateResponse(

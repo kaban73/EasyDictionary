@@ -1,14 +1,17 @@
 package com.example.easydictionary.repository
 
+import com.example.easydictionary.data.translateRepository.LoadResult
+import com.example.easydictionary.data.translateRepository.TranslateResponse
 import org.junit.Test
 
 class TranslateResultTest {
     @Test
     fun test_success() {
-        val result = LoadResult.Success(data = TranslateResult(
+        val result = LoadResult.Success(data = TranslateResponse(
             sourceText = "hello",
-            destinationText = "привет"
-        ))
+            translatedText = "привет"
+        )
+        )
         val liveDataWrapper = FakeTranslateLiveDataWrapper.Base()
         val liveDataWrapperUpdate : TranslateLiveDataWrapper.Update = liveDataWrapper
         result.show(updateLiveData = liveDataWrapperUpdate)

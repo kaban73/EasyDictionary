@@ -1,5 +1,9 @@
 package com.example.easydictionary.repository
 
+import com.example.easydictionary.data.translateRepository.LoadResult
+import com.example.easydictionary.data.translateRepository.TranslateRepository
+import com.example.easydictionary.data.translateRepository.TranslateResponse
+import com.example.easydictionary.data.translateRepository.TranslateService
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -12,17 +16,18 @@ class TranslateRepositoryTest {
     fun test_success() = runBlocking {
         val service = FakeTranslateService.Base()
         service.expectSuccess()
-        val repository = TranslateRepository(
-            service = service,
-            sourceLang = "ru",
-            destinationLang = "en",
-            word = "привет"
+        val repository = TranslateRepository.Base(
+            service = service
             )
-        val actual = repository.load()
+        val sourceLang = "ru"
+        val destinationLang = "en"
+        val text = "привет"
+        val actual = repository.load(sourceLang,destinationLang,text)
         val expected = LoadResult.Success(data = TranslateResponse(
             sourceText = "привет",
             translatedText = "hello"
-        ))
+        )
+        )
         assertEquals(expected, actual)
     }
 
@@ -31,13 +36,13 @@ class TranslateRepositoryTest {
         val service = FakeTranslateService.Base()
         service.expectException(UnknownHostException())
 
-        val repository = TranslateRepository(
-            service = service,
-            sourceLang = "ru",
-            destinationLang = "en",
-            word = "привет"
+        val repository = TranslateRepository.Base(
+            service = service
         )
-        val actual = repository.load()
+        val sourceLang = "ru"
+        val destinationLang = "en"
+        val text = "привет"
+        val actual = repository.load(sourceLang,destinationLang,text)
         val expected = LoadResult.Error(noConnection = true)
         assertEquals(expected, actual)
     }
@@ -47,13 +52,13 @@ class TranslateRepositoryTest {
         val service = FakeTranslateService.Base()
         service.expectException(IllegalStateException())
 
-        val repository = TranslateRepository(
-            service = service,
-            sourceLang = "ru",
-            destinationLang = "en",
-            word = "привет"
+        val repository = TranslateRepository.Base(
+            service = service
         )
-        val actual = repository.load()
+        val sourceLang = "ru"
+        val destinationLang = "en"
+        val text = "привет"
+        val actual = repository.load(sourceLang,destinationLang,text)
         val expected = LoadResult.Error(noConnection = false)
         assertEquals(expected, actual)
     }
@@ -84,7 +89,7 @@ class TranslateRepositoryTest {
             override fun expectException(exception: Exception) {
                 exceptionToThrow = exception
             }
-            override suspend fun fetch(sourceLang : String, destinationLang : String, word : String) : TranslateResponse {
+            override suspend fun fetch(sourceLang : String, targetLang : String, word : String) : TranslateResponse {
                 if (expectSuccessResult)
                     return map[word]!!
                 else

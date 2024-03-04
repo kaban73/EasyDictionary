@@ -1,5 +1,6 @@
 package com.example.easydictionary.data.roomRepository
 
+import com.example.easydictionary.data.translateRepository.TranslateResponse
 import com.example.easydictionary.list.Translate
 
 interface RoomRepository {
@@ -7,7 +8,7 @@ interface RoomRepository {
         fun list() : List<Translate>
     }
     interface Add {
-        fun add(value: String) : Long
+        fun add(value: TranslateResponse) : Long
     }
     interface Item {
         fun item(id : Long) : Translate
@@ -29,9 +30,9 @@ interface RoomRepository {
             return list
         }
 
-        override fun add(value: String)  : Long {
+        override fun add(value: TranslateResponse)  : Long {
             val id = now.nowMillis()
-            translatesDao.add(TranslateCache(id, value, value))
+            translatesDao.add(TranslateCache(id, value.sourceText, value.translatedText))
             return id
         }
 

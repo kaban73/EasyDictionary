@@ -24,7 +24,7 @@ class ServiceTest {
             )
         val expected = TranslateResponse(
             sourceText = "привет",
-            translatedText = "hello"
+            translatedText = "Hello"
         )
         assertEquals(expected, actual)
     }

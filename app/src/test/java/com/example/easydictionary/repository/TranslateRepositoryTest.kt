@@ -89,9 +89,9 @@ class TranslateRepositoryTest {
             override fun expectException(exception: Exception) {
                 exceptionToThrow = exception
             }
-            override suspend fun fetch(sourceLang : String, targetLang : String, word : String) : TranslateResponse {
+            override suspend fun fetch(sourceLang : String, targetLang : String, text : String) : TranslateResponse {
                 if (expectSuccessResult)
-                    return map[word]!!
+                    return map[text]!!
                 else
                     throw exceptionToThrow
             }

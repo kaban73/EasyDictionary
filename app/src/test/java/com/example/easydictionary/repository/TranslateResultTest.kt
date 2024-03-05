@@ -9,6 +9,7 @@ import com.example.easydictionary.data.translateRepository.LoadResult
 import com.example.easydictionary.data.translateRepository.TranslateResponse
 import com.example.easydictionary.list.FakeListLiveDataWrapper
 import com.example.easydictionary.list.Translate
+import com.example.easydictionary.list.TranslateUi
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -39,7 +40,7 @@ class TranslateResultTest {
             )
         ))
         listLiveDataWrapper.checkUpdateCalls(listOf(
-            Translate(
+            TranslateUi(
                 id = 0L,
                 sourceText = "hello",
                 translatedText = "привет"
@@ -72,7 +73,7 @@ class TranslateResultTest {
         ))
     }
 
-    private interface FakeRoomRepository : RoomRepository.Mutable {
+    private interface FakeRoomRepository : RoomRepository.Add {
         fun checkAddCalls(expected : List<Translate>)
 
         class Base : FakeRoomRepository {
@@ -80,10 +81,6 @@ class TranslateResultTest {
             private var id = 0L
             override fun checkAddCalls(expected: List<Translate>) {
                 assertEquals(expected, actualAddList)
-            }
-
-            override fun list(): List<Translate> {
-                throw IllegalStateException("not used in test")
             }
 
             override fun add(value: TranslateResponse): Long {

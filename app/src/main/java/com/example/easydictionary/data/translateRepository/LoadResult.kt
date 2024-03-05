@@ -4,7 +4,7 @@ import com.example.easydictionary.add.AddTranslateLiveDataWrapper
 import com.example.easydictionary.add.UiState
 import com.example.easydictionary.core.ListLiveDataWrapper
 import com.example.easydictionary.data.roomRepository.RoomRepository
-import com.example.easydictionary.list.Translate
+import com.example.easydictionary.list.TranslateUi
 
 interface LoadResult {
     interface AddRepository {
@@ -36,7 +36,7 @@ interface LoadResult {
         }
 
         override fun update(id : Long, updateLiveData: ListLiveDataWrapper.Add) {
-            updateLiveData.add(Translate(id, data.sourceText, data.translatedText))
+            updateLiveData.add(TranslateUi(id, data.sourceText, data.translatedText))
         }
 
     }

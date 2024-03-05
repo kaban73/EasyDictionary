@@ -27,11 +27,11 @@ class TranslateResultTest {
         val listLiveDataWrapperUpdate : ListLiveDataWrapper.Add = listLiveDataWrapper
         val roomRepository = FakeRoomRepository.Base()
         val roomRepositoryAdd : RoomRepository.Add = roomRepository
-        result.success(
-            roomRepository = roomRepositoryAdd,
-            updateListLiveData = listLiveDataWrapperUpdate,
-            updateAddLiveData = addLiveDataWrapperUpdate
-        )
+
+        val id = result.add(roomRepositoryAdd)
+        result.update(id, listLiveDataWrapperUpdate)
+        result.update(addLiveDataWrapperUpdate)
+
         roomRepository.checkAddCalls(listOf(
             Translate(
                 id = 0L,
@@ -56,7 +56,7 @@ class TranslateResultTest {
         val result = LoadResult.Error(noConnection = true)
         val errorLiveDataWrapper = FakeAddTranslateLiveDataWrapper.Base()
         val errorLiveDataWrapperUpdate : AddTranslateLiveDataWrapper.Update = errorLiveDataWrapper
-        result.update(errorLiveData = errorLiveDataWrapperUpdate)
+        result.update(updateAddLiveData = errorLiveDataWrapperUpdate)
         errorLiveDataWrapper.checkUpdateCalls(listOf(
             UiState.ShowError(text = "No internet connection")
         ))
@@ -67,7 +67,7 @@ class TranslateResultTest {
         val result = LoadResult.Error(noConnection = false)
         val errorLiveDataWrapper = FakeAddTranslateLiveDataWrapper.Base()
         val errorLiveDataWrapperUpdate : AddTranslateLiveDataWrapper.Update = errorLiveDataWrapper
-        result.update(errorLiveData = errorLiveDataWrapperUpdate)
+        result.update(updateAddLiveData = errorLiveDataWrapperUpdate)
         errorLiveDataWrapper.checkUpdateCalls(listOf(
             UiState.ShowError(text = "Something went wrong")
         ))

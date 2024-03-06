@@ -18,7 +18,7 @@ class DeletePage : AbstractPage(R.id.deleteLayout) {
                 withParent(isAssignableFrom(rootClass)),
                 withParent(withId(root)),
                 isAssignableFrom(TextView::class.java),
-                withId(R.id.titleTextView)
+                withId(R.id.titleDeleteTextView)
             )
         ).check(matches(withText("Are you sure you want to delete translate?")))
     }

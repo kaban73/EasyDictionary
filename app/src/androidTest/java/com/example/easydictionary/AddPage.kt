@@ -3,11 +3,12 @@ package com.example.easydictionary
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
-import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
@@ -44,7 +45,17 @@ class AddPage {
                 isAssignableFrom(TextInputEditText::class.java),
                 withId(R.id.translateInputEditText)
             )
-        ).perform(typeText(text), closeSoftKeyboard())
+        ).perform(replaceText(text), closeSoftKeyboard())
+    }
+    fun checkInputText() {
+        onView(
+            allOf(
+                withParent(isAssignableFrom(LinearLayout::class.java)),
+                withParent(withId(rootId)),
+                isAssignableFrom(TextInputEditText::class.java),
+                withId(R.id.translateInputEditText)
+            )
+        ).check(matches(withText("")))
     }
     fun clickSaveButton() {
         onView(
@@ -56,15 +67,26 @@ class AddPage {
                 withText("Translate")
             )
         ).perform(click())
+        Thread.sleep(700)
     }
     fun chooseLanguage(radioButtonId : Int) {
         onView(
             allOf(
-                withParent(isAssignableFrom(LinearLayout::class.java)),
-                withParent(withId(rootId)),
+                withParent(isAssignableFrom(RadioGroup::class.java)),
+                withParent(withId(R.id.langRadioGroup)),
                 isAssignableFrom(RadioButton::class.java),
                 withId(radioButtonId)
             )
         ).perform(click())
+    }
+    fun checkStatus(status : String) {
+        onView(
+            allOf(
+                withParent(isAssignableFrom(LinearLayout::class.java)),
+                withParent(withId(rootId)),
+                isAssignableFrom(TextView::class.java),
+                withId(R.id.translateStatusTextView)
+            )
+        ).check(matches(withText(status)))
     }
 }

@@ -38,6 +38,7 @@ class AddDialogFragment : DialogFragment(R.layout.add_layout) {
 
         addButton.setOnClickListener {
             val text = editText.text.toString()
+            editText.text.clear()
             val targetLang = view.findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
             if (targetLang == "ru")
                 viewModel.add(EN, targetLang, text)
@@ -48,7 +49,6 @@ class AddDialogFragment : DialogFragment(R.layout.add_layout) {
         viewModel.liveData().observe(viewLifecycleOwner) {
             it.apply(textView)
         }
-
     }
     companion object {
         private const val EN = "en"

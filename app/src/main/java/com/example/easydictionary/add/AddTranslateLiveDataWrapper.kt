@@ -2,6 +2,7 @@ package com.example.easydictionary.add
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.easydictionary.core.SingleLiveEvent
 
 interface AddTranslateLiveDataWrapper {
     interface Read {
@@ -12,7 +13,7 @@ interface AddTranslateLiveDataWrapper {
     }
     interface Mutable : Read, Update
     class Base(
-        private val liveData : MutableLiveData<UiState> = MutableLiveData()
+        private val liveData : MutableLiveData<UiState> = SingleLiveEvent()
     ) : Mutable {
         override fun liveData(): LiveData<UiState> = liveData
 

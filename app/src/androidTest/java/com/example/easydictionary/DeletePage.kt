@@ -5,6 +5,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -24,16 +25,22 @@ class DeletePage {
             )
         ).check(matches(withText(text)))
     }
+
+    private fun title() = onView(
+        allOf(
+            withParent(isAssignableFrom(LinearLayout::class.java)),
+            withParent(withId(rootId)),
+            isAssignableFrom(TextView::class.java),
+            withId(R.id.titleDeleteTextView),
+            withText("Are you sure you want to delete translate?")
+        )
+    )
     fun checkVisibleNow() {
-        onView(
-            allOf(
-                withParent(isAssignableFrom(LinearLayout::class.java)),
-                withParent(withId(rootId)),
-                isAssignableFrom(TextView::class.java),
-                withId(R.id.titleDeleteTextView),
-                withText("Are you sure you want to delete translate?")
-            )
-        ).check(matches(isDisplayed()))
+        title().check(matches(isDisplayed()))
+    }
+
+    fun checkNotVisibleNow() {
+        title().check(doesNotExist())
     }
 
     fun clickDeleteButton() {

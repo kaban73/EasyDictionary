@@ -51,12 +51,12 @@ class ListPage {
         onView(
             allOf(
                 isAssignableFrom(TextView::class.java),
-                withParent(withId(R.id.elementTextView)),
-                withParent(isAssignableFrom(TextView::class.java)),
+                withId(R.id.elementTextView),
                 recyclerViewMatcher().atPosition(position,R.id.elementTextView)
             )
         ).check(matches(withText(translate)))
     }
+
 
     fun clickTranslateAt(position: Int) {
         onView(recyclerViewMatcher().atPosition(position)).perform(click())

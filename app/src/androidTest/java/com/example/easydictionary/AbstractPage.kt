@@ -1,7 +1,6 @@
 package com.example.easydictionary
 
-import android.view.ViewGroup
-import android.widget.LinearLayout
+import android.widget.FrameLayout
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -10,20 +9,22 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import org.hamcrest.Matchers.allOf
 
-abstract class AbstractPage(
-    protected val root : Int,
-    protected val rootClass : Class<out ViewGroup> = LinearLayout::class.java
-) {
-    protected val rootInteraction = onView(
-        allOf(
-            isAssignableFrom(rootClass),
-            withId(root)
-        )
-    )
-    open fun checkVisibleNow() {
-        rootInteraction.check(matches(isDisplayed()))
+class MainPage {
+    private val rootId : Int = R.id.container
+    fun checkVisibleNow() {
+        onView(
+            allOf(
+                isAssignableFrom(FrameLayout::class.java),
+                withId(rootId)
+            )
+        ).check(matches(isDisplayed()))
     }
     fun checkNotVisibleNow() {
-        rootInteraction.check(doesNotExist())
+        onView(
+            allOf(
+                isAssignableFrom(FrameLayout::class.java),
+                withId(rootId)
+            )
+        ).check(doesNotExist())
     }
 }

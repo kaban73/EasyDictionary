@@ -41,6 +41,44 @@ class EasyDictionaryTest {
     }
 
     @Test
+    fun test_add_success_twice() {
+        mainPage.checkVisibleNow()
+
+        listPage.checkVisibleNow()
+        listPage.clickAddButton()
+        listPage.checkNotVisibleNow()
+
+        addPage.checkVisibleNow()
+        addPage.inputText("hello")
+        addPage.chooseLanguage(R.id.ruLangRadioButton)
+        addPage.clickSaveButton()
+        addPage.checkInputText()
+        addPage.checkStatus("Successfully added")
+        Espresso.pressBack()
+        addPage.checkNotVisibleNow()
+
+        listPage.checkVisibleNow()
+        listPage.checkTranslate(position = 0, translate = "hello - привет")
+
+        listPage.clickAddButton()
+        listPage.checkNotVisibleNow()
+
+        addPage.checkVisibleNow()
+        addPage.checkStatus("")
+        addPage.inputText("twice")
+        addPage.chooseLanguage(R.id.ruLangRadioButton)
+        addPage.clickSaveButton()
+        addPage.checkInputText()
+        addPage.checkStatus("Successfully added")
+        Espresso.pressBack()
+        addPage.checkNotVisibleNow()
+
+        listPage.checkVisibleNow()
+        listPage.checkTranslate(position = 0, translate = "hello - привет")
+        listPage.checkTranslate(position = 1, translate = "twice - дважды")
+    }
+
+    @Test
     fun test_add_error() {
         mainPage.checkVisibleNow()
 
@@ -49,6 +87,20 @@ class EasyDictionaryTest {
         listPage.checkNotVisibleNow()
 
         addPage.checkVisibleNow()
+        addPage.inputText("")
+        addPage.chooseLanguage(R.id.ruLangRadioButton)
+        addPage.clickSaveButton()
+        addPage.checkInputText()
+        addPage.checkStatus("Something went wrong")
+        Espresso.pressBack()
+        addPage.checkNotVisibleNow()
+
+        listPage.checkVisibleNow()
+        listPage.clickAddButton()
+        listPage.checkNotVisibleNow()
+
+        addPage.checkVisibleNow()
+        addPage.checkStatus("")
         addPage.inputText("")
         addPage.chooseLanguage(R.id.ruLangRadioButton)
         addPage.clickSaveButton()

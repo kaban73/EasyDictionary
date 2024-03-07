@@ -51,7 +51,7 @@ class AddViewModel(
     }
 
     fun comeback() {
-        navigation.update(Screen.Pop)
         clear.clear(AddViewModel::class.java)
+        navigation.update(Screen.Pop)
     }
 }

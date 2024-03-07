@@ -1,7 +1,7 @@
 package com.example.easydictionary.list
 
 import androidx.lifecycle.LiveData
-import com.example.easydictionary.add.AddWordViewModelTest
+import com.example.easydictionary.add.Order
 import com.example.easydictionary.core.ListLiveDataWrapper
 import org.junit.Assert.assertEquals
 
@@ -13,7 +13,7 @@ interface FakeListLiveDataWrapper : ListLiveDataWrapper.All {
 
     fun checkUpdateCalls(expected : List<TranslateUi>)
     class Base(
-        private val order : AddWordViewModelTest.Order = AddWordViewModelTest.Order()
+        private val order : Order = Order()
     ) : FakeListLiveDataWrapper {
         private val actualUpdateCalls = mutableListOf<TranslateUi>()
         private var id = 0L

@@ -49,8 +49,8 @@ class DeleteViewModel(
     }
 
     fun comeback() {
-        navigation.update(Screen.Pop)
         clear.clear(DeleteViewModel::class.java)
+        navigation.update(Screen.Pop)
     }
 
     override fun liveData(): LiveData<Pair<String, String>> = deleteLiveDataWrapper.liveData()

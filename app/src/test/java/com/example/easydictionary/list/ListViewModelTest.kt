@@ -1,6 +1,7 @@
 package com.example.easydictionary.list
 
 import com.example.easydictionary.data.roomRepository.RoomRepository
+import com.example.easydictionary.main.FakeNavigation
 import kotlinx.coroutines.Dispatchers
 import org.junit.Test
 class ListViewModelTest {
@@ -8,9 +9,11 @@ class ListViewModelTest {
     fun test() {
         val repository = FakeRoomRepository.Base()
         val liveDataWrapper = FakeListLiveDataWrapper.Base()
+        val navigation = FakeNavigation.Base()
         val viewModel = ListViewModel(
             repository = repository,
             liveDataWrapper = liveDataWrapper,
+            navigation = navigation,
             dispatcher = Dispatchers.Unconfined,
             dispatcherMain = Dispatchers.Unconfined
         )

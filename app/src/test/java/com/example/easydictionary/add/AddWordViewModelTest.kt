@@ -2,12 +2,16 @@ package com.example.easydictionary.add
 
 import androidx.lifecycle.LiveData
 import com.example.easydictionary.core.FakeClearViewModel
+import com.example.easydictionary.core.FakeClearViewModel.Companion.CLEAR
 import com.example.easydictionary.core.ListLiveDataWrapper
 import com.example.easydictionary.data.roomRepository.RoomRepository
 import com.example.easydictionary.data.translateRepository.LoadResult
 import com.example.easydictionary.data.translateRepository.TranslateRepository
 import com.example.easydictionary.data.translateRepository.TranslateResponse
 import com.example.easydictionary.list.TranslateUi
+import com.example.easydictionary.main.FakeNavigation
+import com.example.easydictionary.main.FakeNavigation.Base.Companion.NAVIGATION
+import com.example.easydictionary.main.Screen
 import kotlinx.coroutines.Dispatchers
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -20,6 +24,7 @@ class AddWordViewModelTest {
     private lateinit var listLiveDataWrapper : FakeAddListLiveDataWrapper
     private lateinit var addTranslateListLiveDataWrapper : FakeAddTranslateLiveDataWrapper
     private lateinit var clear: FakeClearViewModel
+    private lateinit var navigation: FakeNavigation
     private lateinit var viewModel : AddViewModel
 
     @Before
@@ -30,6 +35,7 @@ class AddWordViewModelTest {
         listLiveDataWrapper = FakeAddListLiveDataWrapper.Base(order)
         addTranslateListLiveDataWrapper = FakeAddTranslateLiveDataWrapper.Base(order)
         clear = FakeClearViewModel.Base(order)
+        navigation = FakeNavigation.Base(order)
 
         viewModel = AddViewModel(
             translateRepository = translateRepository,
@@ -37,6 +43,7 @@ class AddWordViewModelTest {
             listLiveDataWrapper = listLiveDataWrapper,
             addTranslateLiveDataWrapper = addTranslateListLiveDataWrapper,
             clear = clear,
+            navigation = navigation,
             dispatcher = Dispatchers.Unconfined,
             dispatcherMain = Dispatchers.Unconfined
         )
@@ -112,19 +119,8 @@ class AddWordViewModelTest {
     fun comeback() {
         viewModel.comeback()
         clear.checkClearCalled(AddViewModel::class.java)
-        order.checkCallsList(listOf(FakeClearViewModel.CLEAR))
-    }
-
-    class Order {
-        private val list = mutableListOf<String>()
-
-        fun add(value: String) {
-            list.add(value)
-        }
-
-        fun checkCallsList(expected: List<String>) {
-            assertEquals(expected, list)
-        }
+        navigation.checkUpdateCalled(listOf(Screen.Pop))
+        order.checkCallsList(listOf(CLEAR, NAVIGATION))
     }
     private interface FakeAddListLiveDataWrapper : ListLiveDataWrapper.Add {
         fun checkAddCalled(expected: TranslateUi)
@@ -211,6 +207,18 @@ class AddWordViewModelTest {
             }
 
         }
+    }
+}
+
+class Order {
+    private val list = mutableListOf<String>()
+
+    fun add(value: String) {
+        list.add(value)
+    }
+
+    fun checkCallsList(expected: List<String>) {
+        assertEquals(expected, list)
     }
 }
 

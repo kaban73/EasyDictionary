@@ -28,8 +28,8 @@ interface ProvideViewModel {
         override fun <T : ViewModel> viewModel(viewModelClass: Class<T>): T = when(viewModelClass) {
             MainViewModel::class.java -> MainViewModel(navigation)
             ListViewModel::class.java -> ListViewModel(roomRepository,listLiveDataWrapper,navigation)
-            AddViewModel::class.java -> AddViewModel(translateRepository, roomRepository, listLiveDataWrapper,addTranslateLiveDataWrapper, clearViewModel)
-            DeleteViewModel::class.java -> DeleteViewModel(roomRepository,listLiveDataWrapper,deleteLiveDataWrapper,clearViewModel)
+            AddViewModel::class.java -> AddViewModel(translateRepository, roomRepository, listLiveDataWrapper,addTranslateLiveDataWrapper, clearViewModel, navigation)
+            DeleteViewModel::class.java -> DeleteViewModel(roomRepository,listLiveDataWrapper,deleteLiveDataWrapper,clearViewModel, navigation)
             else -> throw IllegalStateException("unknown viewModelClass $viewModelClass")
         } as T
     }

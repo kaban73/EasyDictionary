@@ -6,6 +6,8 @@ import com.example.easydictionary.core.ClearViewModel
 import com.example.easydictionary.core.ListLiveDataWrapper
 import com.example.easydictionary.data.roomRepository.RoomRepository
 import com.example.easydictionary.list.TranslateUi
+import com.example.easydictionary.main.Navigation
+import com.example.easydictionary.main.Screen
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +20,7 @@ class DeleteViewModel(
     private val listLiveDataWrapper: ListLiveDataWrapper.Delete,
     private val deleteLiveDataWrapper: DeleteLiveDataWrapper.Mutable,
     private val clear : ClearViewModel,
+    private val navigation: Navigation.Update,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val dispatcherMain: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel(), DeleteLiveDataWrapper.Read {
@@ -46,6 +49,7 @@ class DeleteViewModel(
     }
 
     fun comeback() {
+        navigation.update(Screen.Pop)
         clear.clear(DeleteViewModel::class.java)
     }
 

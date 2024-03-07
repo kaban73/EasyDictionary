@@ -23,7 +23,8 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/langRadioGroup">
+        android:id="@+id/langRadioGroup"
+        >
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,5 +43,11 @@
         android:layout_height="wrap_content"
         android:text="@string/translate"
         android:id="@+id/translateButton"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/translateStatusTextView"/>
 
 </LinearLayout>

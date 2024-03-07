@@ -7,6 +7,8 @@ import com.example.easydictionary.core.ListLiveDataWrapper
 import com.example.easydictionary.data.roomRepository.RoomRepository
 import com.example.easydictionary.data.translateRepository.LoadResult
 import com.example.easydictionary.data.translateRepository.TranslateRepository
+import com.example.easydictionary.main.Navigation
+import com.example.easydictionary.main.Screen
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +22,7 @@ class AddViewModel(
     private val listLiveDataWrapper: ListLiveDataWrapper.Add,
     private val addTranslateLiveDataWrapper: AddTranslateLiveDataWrapper.Mutable,
     private val clear : ClearViewModel,
+    private val navigation: Navigation.Update,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val dispatcherMain: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel(), AddTranslateLiveDataWrapper.Read{
@@ -48,6 +51,7 @@ class AddViewModel(
     }
 
     fun comeback() {
+        navigation.update(Screen.Pop)
         clear.clear(AddViewModel::class.java)
     }
 }

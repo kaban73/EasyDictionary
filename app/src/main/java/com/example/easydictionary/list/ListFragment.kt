@@ -24,6 +24,7 @@ class ListFragment : AbstractFragment<ListLayoutBinding>() {
         viewModel = (activity as ProvideViewModel).viewModel(ListViewModel::class.java)
 
         b.recyclerView.adapter = adapter
+        b.recyclerView.addItemDecoration(ItemDecoration())
         b.addButton.setOnClickListener {
             viewModel.add()
         }

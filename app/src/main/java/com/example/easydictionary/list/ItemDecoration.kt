@@ -14,13 +14,12 @@ class ItemDecoration : RecyclerView.ItemDecoration() {
     ) {
         outRect.left = SPACE
         outRect.right = SPACE
-        outRect.bottom = SPACE
+        outRect.bottom = SPACE * 2
 
-        if (parent.getChildAdapterPosition(view) == 0) {
-            outRect.top = SPACE
-        } else {
+        if (parent.getChildAdapterPosition(view) == 0)
+            outRect.top = SPACE * 2
+        else
             outRect.top = 0
-        }
     }
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {

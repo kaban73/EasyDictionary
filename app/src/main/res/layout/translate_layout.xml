@@ -7,7 +7,7 @@
     tools:text="asda - dasdas"
     android:padding="10dp"
     android:gravity="center"
-    android:background="@drawable/round_corner_for_item"
+    android:background="@drawable/selector_for_item"
     android:textColor="@color/black"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_marginBottom="10dp"/>
